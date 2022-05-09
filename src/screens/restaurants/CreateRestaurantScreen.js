@@ -10,7 +10,7 @@ import { brandBackground, brandPrimary, brandPrimaryTap, brandSecondary, flashSt
 import restaurantLogo from '../../../assets/restaurantLogo.jpeg'
 import restaurantBackground from '../../../assets/restaurantBackground.jpeg'
 import { showMessage } from 'react-native-flash-message'
-import { Formik } from 'formik'
+import { ErrorMessage, Formik } from 'formik'
 import TextError from '../../components/TextError'
 
 export default function CreateRestaurantScreen ({ navigation }) {
@@ -18,7 +18,7 @@ export default function CreateRestaurantScreen ({ navigation }) {
   const [restaurantCategories, setRestaurantCategories] = useState([])
   const [backendErrors, setBackendErrors] = useState()
 
-  const initialRestaurantValues = { name: '', description: '', address: '', postalCode: '', url: '', shippingCosts: 0, email: '', phone: '', restaurantCategoryId: null }
+  const initialRestaurantValues = { name: '', description: '', address: '', postalCode: '', url: '', shippingCosts: 0, email: '', phone: '', restaurantCategoryId: '' }
   const validationSchema = yup.object().shape({
     name: yup
       .string()
@@ -46,7 +46,12 @@ export default function CreateRestaurantScreen ({ navigation }) {
     phone: yup
       .string()
       .min(9, ({ min }) => `Phone must be at least ${min} characters`)
-      .required('Phone is required')
+      .required('Phone is required'),
+    restaurantCategoryId: yup
+      .number()
+      .required('Restaurant category is required')
+      .positive()
+      .integer()
   })
 
   useEffect(() => {
@@ -169,6 +174,7 @@ export default function CreateRestaurantScreen ({ navigation }) {
                 style={{ backgroundColor: brandBackground }}
                 dropDownStyle={{ backgroundColor: '#fafafa' }}
               />
+              <ErrorMessage name={'restaurantCategoryId'} render={msg => <TextError>{msg}</TextError> }/>
 
               <Pressable onPress={() =>
                 pickImage(

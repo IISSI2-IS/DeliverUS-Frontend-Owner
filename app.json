@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "IISSI2-IS-Frontend-Owner-Lab6",
-    "slug": "iissi2-is-frontend-owner-lab6",
+    "name": "IISSI2-IS-Frontend-Owner",
+    "slug": "IISSI2-IS-Frontend-Owner",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,7 +27,6 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "description": ""
+    }
   }
 }
